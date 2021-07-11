@@ -10,7 +10,7 @@ export default function Hamburger() {
     const authDispatch = useAuthDispatch()
     const logout = () => {
         authDispatch({ type: 'LOGOUT' })
-        window.location.href = '/login'
+        window.location.href = '/'
       }
   return (
     <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
