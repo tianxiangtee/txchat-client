@@ -1,21 +1,19 @@
-import React from 'react'
 import {
-  ApolloClient,
-  InMemoryCache,
-  ApolloProvider as Provider,
-  createHttpLink,
-  split
+  ApolloClient, ApolloProvider as Provider,
+  createHttpLink, InMemoryCache, split
 } from '@apollo/client'
 import { setContext } from '@apollo/client/link/context'
-import { WebSocketLink } from '@apollo/client/link/ws';
-import { getMainDefinition } from '@apollo/client/utilities';
+import { WebSocketLink } from '@apollo/client/link/ws'
+import { getMainDefinition } from '@apollo/client/utilities'
+import React from 'react'
 
 let httpLink = createHttpLink({
-  uri: '/graphql/',
+  //uri: '/graphql/',
+    uri: 'https://txchat-server.herokuapp.com',
 })
 
 const authLink = setContext((_, { headers }) => {
-  // get the authentication token from local storage if it exists
+  // // get the authentication token from local storage if it exists
   const token = localStorage.getItem('token')
   // return the headers to the context so httpLink can read them
   return {
@@ -26,31 +24,32 @@ const authLink = setContext((_, { headers }) => {
   }
 })
 
-httpLink =  authLink.concat(httpLink)
+httpLink = authLink.concat(httpLink)
 
-const host = window.location.host
+//const host = window.location.host
+const host = 'https://txchat-server.herokuapp.com'
 
 const wsLink = new WebSocketLink({
-  uri: `ws://${host}:4000/graphql`,
+  uri: `wss://txchat-server.herokuapp.com:`,
   options: {
     reconnect: true,
-    connectionParams:{
-      Authorization : `Bearer ${localStorage.getItem('token')}`
-    }
-  }
-});
+    connectionParams: {
+      Authorization: `Bearer ${localStorage.getItem('token')}`,
+    },
+  },
+})
 
 const splitLink = split(
   ({ query }) => {
-    const definition = getMainDefinition(query);
+    const definition = getMainDefinition(query)
     return (
       definition.kind === 'OperationDefinition' &&
       definition.operation === 'subscription'
-    );
+    )
   },
   wsLink,
-  httpLink,
-);
+  httpLink
+)
 
 const client = new ApolloClient({
   link: splitLink,
