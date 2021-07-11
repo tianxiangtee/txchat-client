@@ -27,8 +27,6 @@ const authLink = setContext((_, { headers }) => {
 httpLink = authLink.concat(httpLink)
 
 //const host = window.location.host
-const host = 'https://txchat-server.herokuapp.com'
-
 const wsLink = new WebSocketLink({
   uri: `wss://txchat-server.herokuapp.com:`,
   options: {

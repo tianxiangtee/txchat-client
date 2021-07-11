@@ -1,8 +1,8 @@
 import React from "react";
 // import "./styles.css";
-import { Nav, Navbar, NavDropdown } from "react-bootstrap";
+import { Nav, Navbar } from "react-bootstrap";
+import { useAuthDispatch } from '../../context/auth';
 import { ReactComponent as Logo } from "../../logo.svg";
-import { useAuthDispatch, useAuthState } from '../../context/auth'
 
 //import "bootstrap/dist/css/bootstrap.min.css";
 

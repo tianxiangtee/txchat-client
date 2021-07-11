@@ -1,10 +1,10 @@
-import React, { Fragment, useEffect, useState } from 'react'
 import { gql, useLazyQuery, useMutation } from '@apollo/client'
+import React, { Fragment, useEffect, useState } from 'react'
 import { Col, Form } from 'react-bootstrap'
-
 import { useMessageDispatch, useMessageState } from '../../context/message'
-
 import Message from './Message'
+
+
 
 const SEND_MESSAGE = gql`
   mutation sendMessage($to: String!, $content: String!) {
@@ -55,6 +55,7 @@ export default function Messages() {
     if (selectedUser && !selectedUser.messages) {
       getMessages({ variables: { from: selectedUser.username } })
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedUser])
 
   useEffect(() => {
@@ -67,6 +68,7 @@ export default function Messages() {
         },
       })
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [messagesData])
 
   const submitMessage = (e) => {

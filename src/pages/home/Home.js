@@ -1,14 +1,11 @@
-import React, { Fragment, useEffect } from 'react'
-import { Col, Row, Button } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
-import { gql, useSubscription } from '@apollo/client'
-
-import { useAuthDispatch, useAuthState } from '../../context/auth'
-import { useMessageDispatch } from '../../context/message'
-
-import Users from './Users'
-import Messages from './Messages'
-import Hamburger from './Hamburger'
+import { gql, useSubscription } from "@apollo/client";
+import React, { Fragment, useEffect } from "react";
+import { Row } from "react-bootstrap";
+import { useAuthState } from "../../context/auth";
+import { useMessageDispatch } from "../../context/message";
+import Hamburger from "./Hamburger";
+import Messages from "./Messages";
+import Users from "./Users";
 
 const NEW_MESSAGE = gql`
   subscription newMessage {
@@ -20,7 +17,7 @@ const NEW_MESSAGE = gql`
       createdAt
     }
   }
-`
+`;
 
 const NEW_REACTION = gql`
   subscription newReaction {
@@ -34,66 +31,61 @@ const NEW_REACTION = gql`
       }
     }
   }
-`
+`;
 
 export default function Home({ history }) {
-  const authDispatch = useAuthDispatch()
-  const messageDispatch = useMessageDispatch()
+  const messageDispatch = useMessageDispatch();
 
-  const { user } = useAuthState()
+  const { user } = useAuthState();
 
-  const { data: messageData, error: messageError } = useSubscription(
-    NEW_MESSAGE
-  )
+  const { data: messageData, error: messageError } =
+    useSubscription(NEW_MESSAGE);
 
-  const { data: reactionData, error: reactionError } = useSubscription(
-    NEW_REACTION
-  )
+  const { data: reactionData, error: reactionError } =
+    useSubscription(NEW_REACTION);
 
   useEffect(() => {
-    if (messageError) console.log(messageError)
+    if (messageError) console.log(messageError);
 
     if (messageData) {
-      const message = messageData.newMessage
-      const otherUser = user.username === message.to ? message.from : message.to
+      const message = messageData.newMessage;
+      const otherUser =
+        user.username === message.to ? message.from : message.to;
 
       messageDispatch({
-        type: 'ADD_MESSAGE',
+        type: "ADD_MESSAGE",
         payload: {
           username: otherUser,
           message,
         },
-      })
+      });
     }
-  }, [messageError, messageData])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [messageError, messageData]);
 
   useEffect(() => {
-    if (reactionError) console.log(reactionError)
+    if (reactionError) console.log(reactionError);
 
     if (reactionData) {
-      const reaction = reactionData.newReaction
+      const reaction = reactionData.newReaction;
       const otherUser =
         user.username === reaction.message.to
           ? reaction.message.from
-          : reaction.message.to
+          : reaction.message.to;
 
       messageDispatch({
-        type: 'ADD_REACTION',
+        type: "ADD_REACTION",
         payload: {
           username: otherUser,
           reaction,
         },
-      })
+      });
     }
-  }, [reactionError, reactionData])
-
-  const logout = () => {
-    authDispatch({ type: 'LOGOUT' })
-    window.location.href = '/login'
-  }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [reactionError, reactionData]);
 
   return (
-    <Fragment>      
+    <Fragment>
       <Row className="bg-white justify-content-around mb-1">
         {/* <Col>
           <Link to="/login">
@@ -110,7 +102,7 @@ export default function Home({ history }) {
             Logout
           </Button>
         </Col> */}
-        <Hamburger/>
+        <Hamburger />
       </Row>
       <Row className="bg-white">
         <Users />
