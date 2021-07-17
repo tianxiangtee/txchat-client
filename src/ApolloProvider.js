@@ -7,9 +7,16 @@ import { WebSocketLink } from '@apollo/client/link/ws'
 import { getMainDefinition } from '@apollo/client/utilities'
 import React from 'react'
 
+const host = 'localhost:4000';
+const uri = `http://${host}`;
+const websocket = `ws://${host}`;
+
+// const host = 'txchat-server.herokuapp.com:';
+// const uri = `https://${host}`;
+// const websocket = `wss://${host}`;
+
 let httpLink = createHttpLink({
-  //uri: '/graphql/',
-    uri: 'https://txchat-server.herokuapp.com',
+  uri: uri,  
 })
 
 const authLink = setContext((_, { headers }) => {
@@ -26,9 +33,10 @@ const authLink = setContext((_, { headers }) => {
 
 httpLink = authLink.concat(httpLink)
 
-//const host = window.location.host
+
+
 const wsLink = new WebSocketLink({
-  uri: `wss://txchat-server.herokuapp.com:`,
+  uri: websocket,
   options: {
     reconnect: true,
     connectionParams: {
