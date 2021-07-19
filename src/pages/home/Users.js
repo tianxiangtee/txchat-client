@@ -57,7 +57,7 @@ export default function Users() {
             <p className="text-success">{user.username}</p>
             <p className="font-weight-light">
               {user.latestMessage
-                ? user.latestMessage.content
+                ? user.latestMessage.content.length > 20 ? user.latestMessage.content.substr(0,30) + '...' : user.latestMessage.content
                 : "You are now connected!"}
             </p>
           </div>

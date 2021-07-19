@@ -14,6 +14,7 @@ const NEW_MESSAGE = gql`
       from
       to
       content
+      content_type
       createdAt
     }
   }

@@ -1,7 +1,7 @@
 $blue: #1877f2;
 $green: #42b72a;
 
-$border-radius: 0;
+$border-radius: 10px;
 $paragraph-margin-bottom: 0;
 
 $gray-600: rgb(245, 245, 245);
@@ -10,6 +10,7 @@ $gray-600: rgb(245, 245, 245);
 
 body {
   min-height: 100vh;
+  height:100%;
   background: linear-gradient(
     203deg,
     rgba(131, 58, 180, 0.9) 0%,
@@ -17,6 +18,7 @@ body {
     rgba(252, 176, 69, 0.9) 100%
   );
 }
+
 
 .user-div:hover {
   background-color: rgb(250, 250, 250);
@@ -80,8 +82,26 @@ body {
   font-size : 0.9rem
 }
 
+.searchboxWrapper {
+  background-color: #fff;
+  border-radius: 0.3rem;
+  border: 1px solid #ddd;
+  display: inline-block;
+  padding: 5px;
+  box-shadow: 0 0.3rem 1rem rgba(8, 38, 78, 0.2);
+}
+
 @media (min-width: 480px) {
   .container {
     padding-top:100px;    
   }
 }
+html, body, #root {
+  height: 100%;
+}
+
+.container{
+  min-height: 100%;
+  height: 100%;
+}
+

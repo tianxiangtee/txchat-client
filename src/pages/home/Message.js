@@ -5,7 +5,6 @@ import React, { useState } from "react";
 import { Button, OverlayTrigger, Popover, Tooltip } from "react-bootstrap";
 import { useAuthState } from "../../context/auth";
 
-
 const reactions = ["❤️", "😆", "😯", "😢", "😡", "👍", "👎"];
 
 const REACT_TO_MESSAGE = gql`
@@ -21,7 +20,7 @@ export default function Message({ message }) {
   const sent = message.from === user.username;
   const received = !sent;
   const [showPopover, setShowPopover] = useState(false);
-  const reactionIcons = [...new Set(message.reactions.map((r) => r.content))]
+  const reactionIcons = [...new Set(message.reactions.map((r) => r.content))];
 
   const [reactToMessage] = useMutation(REACT_TO_MESSAGE, {
     onError: (err) => console.log(err),
@@ -80,21 +79,30 @@ export default function Message({ message }) {
         }
         transition={false}
       >
-        <div
-          className={classNames("py-2 px-3 rounded-pill position-relative", {
-            "bg-primary": sent,
-            "bg-secondary": received,
-          })}
-        >
-          {message.reactions.length > 0 && (
-            <div className="reactions-div bg-secondary p-1 rounded-pill">
-              {reactionIcons} {message.reactions.length}
-            </div>
-          )}
-          <p className={classNames({ "text-white": sent })} key={message.uuid}>
-            {message.content}
-          </p>
-        </div>
+        {message?.content_type === "gif" ? (
+          <div className="py-2 px-3 ">            
+            <img src={message.content} width="100" height="100"></img>
+          </div>          
+        ) : (
+          <div
+            className={classNames("py-2 px-3 rounded position-relative", {
+              "bg-primary": sent,
+              "bg-secondary": received,
+            })}
+          >
+            {message.reactions.length > 0 && (
+              <div className="reactions-div bg-secondary p-1 rounded-pill">
+                {reactionIcons} {message.reactions.length}
+              </div>
+            )}
+            <p
+              className={classNames({ "text-white": sent })}
+              key={message.uuid}
+            >
+              {message.content}
+            </p>
+          </div>
+        )}
       </OverlayTrigger>
       {received && reactButton}
     </div>
