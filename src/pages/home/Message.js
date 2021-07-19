@@ -81,7 +81,7 @@ export default function Message({ message }) {
       >
         {message?.content_type === "gif" ? (
           <div className="py-2 px-3 ">            
-            <img src={message.content} width="100" height="100"></img>
+            <img src={message.content} width="100" height="120" alt="stickers"></img>
           </div>          
         ) : (
           <div
