@@ -7,13 +7,13 @@ import { WebSocketLink } from '@apollo/client/link/ws'
 import { getMainDefinition } from '@apollo/client/utilities'
 import React from 'react'
 
-const host = 'localhost:4000';
-const uri = `http://${host}`;
-const websocket = `ws://${host}`;
+// const host = 'localhost:4000';
+// const uri = `http://${host}`;
+// const websocket = `ws://${host}`;
 
-// const host = 'txchat-server.herokuapp.com:';
-// const uri = `https://${host}`;
-// const websocket = `wss://${host}`;
+const host = 'txchat-server.herokuapp.com:';
+const uri = `https://${host}`;
+const websocket = `wss://${host}`;
 
 let httpLink = createHttpLink({
   uri: uri,  
