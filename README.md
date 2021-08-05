@@ -27,7 +27,7 @@
 <br />
 <p align="center">
   <a href="https://github.com/tianxiangtee/txchat-client">
-    <img src="Github/chat-09.jpg" alt="Logo" width="80" height="80">
+    <img src="Github/chat-09.jpg" alt="Logo" width="160" height="120">
   </a>
   <br/>
   <a href="https://www.vecteezy.com/free-vector/chat-logo">Chat Logo Vectors by Vecteezy</a>
@@ -181,4 +181,4 @@ Project Link: [https://github.com/tianxiangtee/txchat-client](https://github.com
 [issues-url]: https://github.com/tianxiangtee/txchat-client/issues
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://www.linkedin.com/in/tee-tian-xiang-139a7615a/
-[product-screenshot]: Github/screenshot.png
+[product-screenshot]: Github/screenshot.PNG
